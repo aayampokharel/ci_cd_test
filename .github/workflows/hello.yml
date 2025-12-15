@@ -1,8 +1,9 @@
-name: workflow_example
+name: workflow_example_2
 on:
   push:
     branches: 
       - main
+      - master
 
 jobs:
   clone_repo:
