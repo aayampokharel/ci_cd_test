@@ -1,12 +1,16 @@
-name: hello_server
+name: workflow_example
 on:
   push:
-    branches:
-       - main
-       - master
+    branches: 
+      - main
+
 jobs:
-  workflow-1:
+  clone_repo:
     runs-on: ubuntu-latest
     steps:
-      - name: say hello
-        run: echo "hello CI server"
+      - name: clone
+        uses: actions/checkout@v4
+
+      - name: run shell script
+        run: ./scripts/print.sh
+    
