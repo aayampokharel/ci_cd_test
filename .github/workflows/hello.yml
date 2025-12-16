@@ -1,6 +1,6 @@
 name: workflow_test_with_go_prints
 on: 
-  push:
+  commit:
     branches:
       - main
       - master
