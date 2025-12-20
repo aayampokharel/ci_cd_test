@@ -2,7 +2,11 @@ package main
 
 import "fmt"
 
-func main() {
-	fmt.Print("hello from ci_cd folder..should WORK! ")
+func addTwoNumbers(a, b int) int {
+	return a + b
 }
-// Triggering status check
+func main() {
+	fmt.Print("====main() started ====")
+	addTwoNumbers(1, 2)
+	fmt.Print("====main() end ====")
+}

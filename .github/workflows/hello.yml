@@ -1,5 +1,5 @@
-name: workflow_test_with_go_prints
-on: 
+name: ci_cd_testing
+on:
   push:
     branches:
       - main
@@ -8,16 +8,17 @@ on:
 jobs:
   build_and_run_go:
     runs-on: ubuntu-latest
+
     steps:
-      - name: clone repo
+      - name:  clone repo
         uses: actions/checkout@v4
-      - name: go build
+      - name: go install
         uses: actions/setup-go@v4
         with:
-          go-version: 1.25.5
-
-      - name: go tidy(Install dependencies)
-        run: go mod tidy
-     
-      - name: go run 
-        run: go run .
+          go-version: "1.25.1"
+      - name: go mod download
+        run: go mod download
+      - name: build go
+        run: go build -o bin/go_code
+      - name: run go
+        run: ./bin/go_code
