@@ -1,5 +1,3 @@
-set -e
-
-echo "CI started"
-echo "Running checks..."
-echo "CI finished"
+echo " enter filename"
+read fileName         
+echo "the file is $fileName and the wc is : $(wc -l < $fileName)"
