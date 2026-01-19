@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: "build go"
-        run: go build -o ./scripts/go-output.exe
+        run: go build -o ./scripts/go-output
       - name: "run go"
-        run: go run ./scripts/go-output.exe
+        run: ./scripts/go-output
 
