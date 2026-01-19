@@ -36,6 +36,6 @@ jobs:
           path: ./
       - name: "path of executable"
         run: |
-             ls -R
+             find .
     
 
