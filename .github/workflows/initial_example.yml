@@ -1,0 +1,15 @@
+name: first_example
+on: 
+    pull_request:
+        branches:
+            - main
+            - master
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "clone the repo"
+              uses: actions/checkout@v4
+
+            - name: "echo "
+              run: echo "hello world from CI/CD!! "
