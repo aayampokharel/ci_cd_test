@@ -36,7 +36,7 @@ jobs:
           path: ./
       - name: "run executable"
         run: |
-              chmod u+x ./scripts/go-output
-              ./scripts/go-output
+              chmod u+x ./go-output/scripts/go-output
+              ./go-output/scripts/go-output
     
 
