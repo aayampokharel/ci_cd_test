@@ -18,6 +18,12 @@ jobs:
                echo "hello bro"
                echo "after false"
                echo ${{ secrets.MY_PRACTICE_KEY}}
+            - name: "run artifact"
+              uses: actions/upload-artifact@v4
+              with:
+                name: first_artifact
+                path: ./scripts/print2.txt
+
 
 
               
