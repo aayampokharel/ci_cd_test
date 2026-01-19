@@ -20,11 +20,9 @@ jobs:
               run: pwd
             - name: "run go command"
               run: |
-                echo "hello world" 
-                echo "from multiline string"
-                go run . 
-                ./scripts/print.sh
-
+               echo "hello bro"
+               false
+               echo "after false"
 
 
               
