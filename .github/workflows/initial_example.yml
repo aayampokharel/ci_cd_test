@@ -10,19 +10,14 @@ jobs:
         steps:
             - name: "clone the repo"
               uses: actions/checkout@v4
-
-            - name: "setup Go"
-              uses: actions/setup-go@v5
-              with:
-                go-version: "1.25.5"
             
             - name: "know current working directory"
               run: pwd
             - name: "run go command"
               run: |
                echo "hello bro"
-               false
                echo "after false"
+               echo ${{ secrets.MY_PRACTICE_KEY}}
 
 
               
