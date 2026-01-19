@@ -1,34 +1,24 @@
-name: first_example
-on: 
-    pull_request:
-        branches:
-            - main
-            - master
+name: sharing-artifacts-example
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+
+
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: "clone the repo"
-              uses: actions/checkout@v4
-            
-            - name: "know current working directory"
-              run: pwd
-            - name: "run go command"
-              run: |
-               echo "hello bro"
-               echo "after false"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "have go "
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.5" 
+      - name: "repository clone"
+        uses: actions/checkout@v5
 
-            - name: "upload artifact "
-              uses: actions/upload-artifact@v4
-              with:
-                name: uploading-artifact
-                path: ./scripts/print2.txt
-            - name: "run artifact"
-              uses: actions/download-artifact@v4
-              with:
-                name: uploading-artifact
-                path: ./scripts/
+      - name: "build go"
+        run: go build -o ./scripts/go-output.exe
+      - name: "run go"
+        run: go run ./scripts/go-output.exe
 
-
-
-              
