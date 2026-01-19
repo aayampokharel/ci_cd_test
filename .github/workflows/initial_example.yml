@@ -34,9 +34,8 @@ jobs:
         with:
           name: "go-output"
           path: ./
-      - name: "run executable"
+      - name: "path of executable"
         run: |
-              chmod u+x ./go-output/scripts/go-output
-              ./go-output/scripts/go-output
+             ls -R
     
 
