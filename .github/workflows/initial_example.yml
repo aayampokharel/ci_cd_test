@@ -32,9 +32,10 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: "go-output"
+          path: ./scripts/go-output
       - name: "run executable"
         run: |
-              chmod u+x ./go-output
-              ./go-output
+              chmod u+x ./scripts/go-output
+              ./scripts/go-output
     
 
