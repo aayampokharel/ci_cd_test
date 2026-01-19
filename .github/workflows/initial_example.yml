@@ -18,9 +18,13 @@ jobs:
             
             - name: "know current working directory"
               run: pwd
-            - run: ls -a
-            - run: cd ..
-            - run: pwd
-            - run: ls -a
+            - name: "run go command"
+              run: |
+                echo "hello world" 
+                echo "from multiline string"
+                go run . 
+                ./scripts/print.sh
+
+
 
               

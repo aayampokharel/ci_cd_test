@@ -1,4 +1,5 @@
-set -o pipefail
-
-false | true
-echo $?
+echo "below is the file " 
+ ls .github/workflows/*
+ cd ..
+ pwd
+ 
