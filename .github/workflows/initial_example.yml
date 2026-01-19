@@ -18,5 +18,8 @@ jobs:
             
             - name: "know current working directory"
               run: pwd
-            - run: echo "hello HELLOE HELLO HELLO HELLO"
+            - run: ls -a
+            - run: cd ..
+            - run: ls -a
+
               
