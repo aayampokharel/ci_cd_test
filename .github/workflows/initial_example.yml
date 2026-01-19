@@ -24,6 +24,9 @@ jobs:
         with: 
           name: "go-output"
           path: ./scripts/go-output
+      - name: "verify upload"
+        run: |
+              ls -l scripts
   
   run-go: 
     needs: build
