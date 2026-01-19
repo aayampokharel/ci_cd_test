@@ -19,6 +19,22 @@ jobs:
 
       - name: "build go"
         run: go build -o ./scripts/go-output
-      - name: "run go"
-        run: ./scripts/go-output
+      - name: "upload artifact "
+        uses: actions/upload-artifact@v5
+        with: 
+          name: "go-output"
+          path: ./scripts/go-output
+  
+  run-go: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: "download artifact"
+        uses: actions/download-artifact@v5
+        with:
+          name: "go-output"
+      - name: "run executable"
+        run: |
+              chmod u+x ./go-output
+              ./go-output
+    
 
