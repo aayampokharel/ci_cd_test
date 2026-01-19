@@ -5,5 +5,5 @@ import "fmt"
 func main() {
 	fmt.Print("====main() started ====")
 
-	fmt.Print("====main() end ====")
+	fmt.Print("====main() 
 }
