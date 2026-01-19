@@ -11,5 +11,12 @@ jobs:
             - name: "clone the repo"
               uses: actions/checkout@v4
 
-            - name: "echo "
-              run: echo "hello world from CI/CD!! "
+            - name: "setup Go"
+              uses: actions/setup-go@v5
+              with:
+                go-version: "1.25.5"
+            
+            - name: "know current working directory"
+              run: pwd
+            - run: echo "hello HELLOE HELLO HELLO HELLO"
+              
