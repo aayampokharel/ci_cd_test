@@ -1,0 +1,26 @@
+name: first_example
+on: 
+    pull_request:
+        branches:
+            - main
+            - master
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "clone the repo"
+              uses: actions/checkout@v4
+
+            - name: "setup Go"
+              uses: actions/setup-go@v5
+              with:
+                go-version: "1.25.5"
+            
+            - name: "know current working directory"
+              run: pwd
+            - run: ls -a
+            - run: cd ..
+            - run: pwd
+            - run: ls -a
+
+              

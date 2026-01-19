@@ -1,5 +1,4 @@
-set -e
+set -o pipefail
 
-echo "CI started"
-echo "Running checks..."
-echo "CI finished"
+false | true
+echo $?
