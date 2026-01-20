@@ -7,6 +7,9 @@ on:
 
 jobs: 
   matrix-practice:
+    env:
+      DB_PASS: dbpassword
+      API_SECRET: ${{secrets.MY_API_KEY}}
     strategy:
         matrix:
           os: [ubuntu-latest,windows-latest]
