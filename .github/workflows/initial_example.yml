@@ -37,8 +37,8 @@ jobs:
         with:
           name: "go-output"
           path: ./
-      - name: "path of executable"
+      - name: "ls -R to verify exe folder path "
         run: |
-             find .
+              ls -R
     
 
