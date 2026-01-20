@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Print("====main() started ====")
-
-	fmt.Print("====main() end ====")
+	fmt.Println(os.Getenv("DB_PASS"))
+	fmt.Println(os.Getenv("PASS_FROM_SECRETS"))
+	fmt.Println("=======end=========")
 }
