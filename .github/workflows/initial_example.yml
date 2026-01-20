@@ -13,10 +13,14 @@ jobs:
     strategy:
         matrix:
           os: [ubuntu-latest,windows-latest]
-          go-version: ["1.25.0","1.25.1","1.25.2"]
+          go-version: ["1.25.0"]
     
     runs-on: ${{matrix.os}}
     steps:
+      - name: "print in echo"
+        run: |
+               echo "go version=${{matrix.go-version}} with OS=${{matrix.os}}"
+
       - name: "clone repo"
         uses: actions/checkout@v4
       - name: "setup go"
@@ -28,4 +32,6 @@ jobs:
         run: |
                echo "just an example"
                go run .
+
+     
 
