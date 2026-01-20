@@ -1,9 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Print("====main() started ====")
+	fmt.Println("hello world ")
+	githubVar := os.Getenv("API_SECRET")
+	dbPassword := os.Getenv("DB_PASS")
+	fmt.Println(githubVar)
+	fmt.Println(dbPassword)
+	fmt.Println("end ====== ")
 
-	fmt.Print("====main() end ====")
 }

@@ -1,4 +1,3 @@
-set -o pipefail
 
-false | true
+false
 echo $?
