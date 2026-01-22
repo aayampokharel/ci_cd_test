@@ -7,7 +7,7 @@ on:
 jobs: 
   job_A:
     outputs:
-      is_flutter_running: steps.flutter_variable.outputs.flutter
+      is_flutter_running: ${{steps.flutter_variable.outputs.flutter}}
     runs-on: ubuntu-latest
     steps:
       - name: "set variable "
