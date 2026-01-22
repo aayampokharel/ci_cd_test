@@ -10,12 +10,9 @@ jobs:
     if:   github.head_ref == 'testing' 
 
     steps:
-      - name: "pass output to another step"
-        id: for_output
-        run: |
-               echo "something=true" >> $GITHUB_OUTPUT
-      - name: "print that result"
-        run: |  
-              echo ${{steps.for_output.outputs.something}} is the result
-
-
+      - name: "set up variable"
+        id: variable_setup
+        run: echo "needs_frontend_test=true" >> $GITHUB_OUTPUT
+      - name: "use that variable in if logic "
+        if: ${{steps.variable_setup.outputs.needs_frontend_test == true}}
+        run: echo "this does run "
