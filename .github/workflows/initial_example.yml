@@ -14,5 +14,5 @@ jobs:
         id: variable_setup
         run: echo "needs_frontend_test=true" >> $GITHUB_OUTPUT
       - name: "use that variable in if logic "
-        if: ${{steps.variable_setup.outputs.needs_frontend_test == true}}
+        if: ${{steps.variable_setup.outputs.needs_frontend_test == 'true'}}
         run: echo "this does run "
