@@ -5,17 +5,18 @@ on:
       - main
       - master
 jobs: 
-  deploy:
+  job_A:
+    outputs:
+      is_flutter_running: steps.flutter_variable.outputs.flutter
     runs-on: ubuntu-latest
-    if:   github.head_ref == 'testing' 
-
     steps:
-      - name: "set up variable"
-        id: variable_setup
-        run: echo "needs_frontend_test=true" >> $GITHUB_OUTPUT
-      - name: "use that variable in if logic "
-        run: |
-               [[1 + 2]] #wrong cmd
-      - name: "run only in failure"
-        if: failure()
-        run: echo "this is only run during failure"
+      - name: "set variable "
+        id: flutter_variable
+        run :  echo "flutter=true" >> $GITHUB_OUTPUT
+
+  job_B:
+    needs: job_A
+    runs-on: ubuntu-latest
+    steps:
+      - name: "print the value"
+        run: echo ${{needs.job_A.outputs.is_flutter_running}}
