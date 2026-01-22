@@ -7,8 +7,9 @@ on:
 
 
 jobs: 
-  test: 
+  deploy:
     runs-on: ubuntu-latest
+    if:   github.ref == 'refs/heads/main' 
 
     steps:
       - name: "testing"
