@@ -14,5 +14,8 @@ jobs:
         id: variable_setup
         run: echo "needs_frontend_test=true" >> $GITHUB_OUTPUT
       - name: "use that variable in if logic "
-        if: ${{steps.variable_setup.outputs.needs_frontend_test == 'true'}}
-        run: echo "this does run "
+        run: |
+               [[1 + 2]] #wrong cmd
+      - name: "run only in failure"
+        if: failure()
+        run: echo "this is only run during failure"
