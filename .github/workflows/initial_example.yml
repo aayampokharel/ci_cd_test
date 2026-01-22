@@ -1,22 +1,13 @@
-name: "step context practice"
+name: "github context practice"
 on: 
    pull_request:
     branches:
       - main
       - master
 jobs: 
-  job_A:
-    outputs:
-      is_flutter_running: ${{steps.flutter_variable.outputs.flutter}}
+   check_github:
     runs-on: ubuntu-latest
     steps:
-      - name: "set variable "
-        id: flutter_variable
-        run :  echo "flutter=true" >> $GITHUB_OUTPUT
-
-  job_B:
-    needs: job_A
-    runs-on: ubuntu-latest
-    steps:
-      - name: "print the value"
-        run: echo ${{needs.job_A.outputs.is_flutter_running}}
+      - name: "check for PR branch"
+        if: github.head_ref=='testing'
+        run: echo "hello from testing"
