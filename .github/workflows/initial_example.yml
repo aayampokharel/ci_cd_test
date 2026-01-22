@@ -1,21 +1,22 @@
-name: "env scope practice"
-on: 
-   pull_request:
+name: "passing outputs between jobs"
+on:
+  pull_request:
     branches:
       - main
       - master
-env: 
-  password: 789
-jobs: 
-  env_scope_use:
-   env:
-    password: 123
-   runs-on: ubuntu-latest  
-   steps:
-      - name: "hello with env step scoped "
-        run: echo ${{env.password}}
-        env:
-          password: 456
-      - name: "hello "
-        run: echo ${{env.password}}
-  
+
+jobs:
+  job_A:
+    runs-on: ubuntu-latest
+    outputs:
+      email: ${{steps.output_email.outputs.email}}
+    steps:
+      - name: "pass output"
+        id: output_email
+        run: echo "email=weirdomemess@gmail.com" >> $GITHUB_OUTPUT
+  job_B:
+    needs: job_A
+    runs-on: ubuntu-latest
+    steps:
+      - name: "print output from jobA"
+        run: echo ${{needs.job_A.outputs.email}}
