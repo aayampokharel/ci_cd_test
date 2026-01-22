@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: "testing"
         run: |
-               [[ 1 -ne 1 ]]
+               [[ 1 -ne 1 ]] 
       - name: "print value"
         run : echo "==end=="
 
