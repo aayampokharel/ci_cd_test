@@ -10,7 +10,7 @@ on:
 jobs: 
   deploy:
     runs-on: ubuntu-latest
-    if:   github.ref == 'refs/heads/testing' 
+    if:   github.head_ref == 'refs/heads/testing' 
 
     steps:
       - name: "testing"
