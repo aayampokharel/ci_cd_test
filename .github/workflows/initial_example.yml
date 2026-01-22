@@ -1,22 +1,21 @@
-name: "if conditions practice"
+name: "step context practice"
 on: 
    pull_request:
     branches:
       - main
       - master
-
-
-
 jobs: 
   deploy:
     runs-on: ubuntu-latest
     if:   github.head_ref == 'testing' 
 
     steps:
-      - name: "testing"
+      - name: "pass output to another step"
+        id: for_output
         run: |
-               [[ 1 -eq 1 ]] 
-      - name: "print value"
-        run : echo "==end=="
+               echo "something=true" >> $GITHUB_OUTPUT
+      - name: "print that result"
+        run: |  
+              echo ${{steps.for_output.outputs.something}} is the result
 
 
