@@ -1,13 +1,15 @@
-name: "github context practice"
+name: "github output practice"
 on: 
    pull_request:
     branches:
       - main
       - master
 jobs: 
-   check_github:
+   github_output_use:
     runs-on: ubuntu-latest
     steps:
-      - name: "check for PR branch"
-        if: github.head_ref=='testing'
-        run: echo "hello from testing"
+      - name: "update key-value pair to GITHUB OUTPUT"
+        id: update
+        run: echo "echo=true" >> $GITHUB_OUTPUT
+      - name: "retrieving value"
+        run: echo ${{steps.update.outputs.echo}}
