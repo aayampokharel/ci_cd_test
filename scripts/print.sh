@@ -1,3 +1,3 @@
-
-false
-echo $?
+echo "hello" 
+echo "var=$?"
+echo $var

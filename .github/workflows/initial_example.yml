@@ -1,37 +1,22 @@
-name: "practice my learnt concepts"
-on: 
-    pull_request:
-      branches:
-        - main
-        - master
+name: "passing outputs between jobs"
+on:
+  pull_request:
+    branches:
+      - main
+      - master
 
-jobs: 
-  matrix-practice:
-    env:
-      DB_PASS: dbpassword
-      API_SECRET: ${{secrets.MY_API_KEY}}
-    strategy:
-        matrix:
-          os: [ubuntu-latest,windows-latest]
-          go-version: ["1.25.0"]
-    
-    runs-on: ${{matrix.os}}
+jobs:
+  job_A:
+    runs-on: ubuntu-latest
+    outputs:
+      email: ${{steps.output_email.outputs.email}}
     steps:
-      - name: "print in echo"
-        run: |
-               echo "go version=${{matrix.go-version}} with OS=${{matrix.os}}"
-
-      - name: "clone repo"
-        uses: actions/checkout@v4
-      - name: "setup go"
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{matrix.go-version}}
-
-      - name: "run go"
-        run: |
-               echo "just an example"
-               go run .
-
-     
-
+      - name: "pass output"
+        id: output_email
+        run: echo "email=weirdomemess@gmail.com" >> $GITHUB_OUTPUT
+  job_B:
+    needs: job_A
+    runs-on: ubuntu-latest
+    steps:
+      - name: "print output from jobA"
+        run: echo ${{needs.job_A.outputs.email}}
