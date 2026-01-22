@@ -1,15 +1,21 @@
-name: "github output practice"
+name: "failure() practice"
 on: 
    pull_request:
     branches:
       - main
       - master
 jobs: 
-   github_output_use:
+   failure_use:
     runs-on: ubuntu-latest
     steps:
       - name: "update key-value pair to GITHUB OUTPUT"
         id: update
-        run: echo "echo=true" >> $GITHUB_OUTPUT
+        run: |
+              [[1+2]]
+      - name: "to print after failure(shouldnot work)"
+        run: echo "this shouldnot be seen because success() is default"
       - name: "retrieving value"
-        run: echo ${{steps.update.outputs.echo}}
+        if: failure()
+        run: echo "works because of failure() !! "
+      - name: "to print after failure(shouldnot work)"
+        run: echo "this shouldnot work!!"
