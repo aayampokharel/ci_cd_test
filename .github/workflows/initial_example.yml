@@ -1,21 +1,21 @@
-name: "failure() practice"
+name: "env scope practice"
 on: 
    pull_request:
     branches:
       - main
       - master
+env: 
+  password: 789
 jobs: 
-   failure_use:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "update key-value pair to GITHUB OUTPUT"
-        id: update
-        run: |
-              [[1+2]]
-      - name: "to print after failure(shouldnot work)"
-        run: echo "this shouldnot be seen because success() is default"
-      - name: "retrieving value"
-        if: failure()
-        run: echo "works because of failure() !! "
-      - name: "to print after failure(shouldnot work)"
-        run: echo "this shouldnot work!!"
+  env_scope_use:
+   env:
+    password: 123
+   runs-on: ubuntu-latest  
+   steps:
+      - name: "hello with env step scoped "
+        run: echo ${{env.password}}
+        env:
+          password: 456
+      - name: "hello "
+        run: echo ${{env.password}}
+  
