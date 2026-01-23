@@ -19,4 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "print output from jobA"
-        run: echo ${{needs.job_A.outputs.email}} is my name
+        run: |
+               echo ${{needs.job_A.outputs.email}} is my name
+               if [[ ${{needs.job_A.outputs.email}} == "Aayam Pokharel" ]];then
+               echo "production"
+               else 
+               echo "deploying to TEST"
+               fi
