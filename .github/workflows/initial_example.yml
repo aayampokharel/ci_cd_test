@@ -1,4 +1,4 @@
-name: " artifacts revision"
+name: " passing output between jobs"
 env:
   password: 123
 on: 
@@ -10,23 +10,21 @@ on:
 jobs:
   
   job_A:
-    env:
-     password: 456
+    outputs:
+      password_output: ${{steps.password_provider.outputs.password}}
     runs-on: ubuntu-latest
     steps:
-      - name: "echo stuff"
+      - name: "provide key value to output file"
+        id: password_provider
         run: |
-              echo "hello brother " ${{env.password}} from job level env 
-      - name: "echo password"
-        run: echo ${{env.password}} from steplevel env 
-        env: 
-          password: 789
+              echo "password=pass@123" >> $GITHUB_OUTPUT
 
   job_B:
+    needs: job_A
     runs-on: ubuntu-latest
     steps:
-      - name: "echo password but it will do from workflow level env "
-        run : echo ${{env.password}} is from workflow/global level env 
+      - name: "print from the passed stuff"
+        run : echo ${{needs.job_A.outputs.password_output}} is the output from job A
       
   
 
