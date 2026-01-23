@@ -1,5 +1,5 @@
-name: "passing outputs between jobs"
-on:
+name: " artifacts revision"
+on: 
   pull_request:
     branches:
       - main
@@ -8,21 +8,28 @@ on:
 jobs:
   job_A:
     runs-on: ubuntu-latest
-    outputs:
-      email: ${{vars.MY_NAME}}
     steps:
-      - name: "pass output"
-        id: output_email
-        run: echo "email=weirdomemess@gmail.com" >> $GITHUB_OUTPUT
+      - name: "make a file"
+        run: |
+              echo "hello brother " > hello.txt
+      - name: "upload as artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "hello file"
+          path: ./hello.txt
+  
   job_B:
-    needs: job_A
     runs-on: ubuntu-latest
     steps:
-      - name: "print output from jobA"
+      - name: "download artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: "hello_downloaded"
+          path: ./
+      - name: "file path"
+        run: ls -R
+      - name: "print contents of downloaded artifacts"
         run: |
-               echo ${{needs.job_A.outputs.email}} is my name
-               if [[ "${{needs.job_A.outputs.email}}" = "Aayam Pokharel" ]];then
-               echo "production"
-               else 
-               echo "deploying to TEST"
-               fi
+               cat < ./hello.txt
+      
+
