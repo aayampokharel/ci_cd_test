@@ -1,3 +1,3 @@
-until (go --version); do
-  echo "ok"
-done
+if [[ hello = "hello" ]];then
+echo "hello"
+fi
