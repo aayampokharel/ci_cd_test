@@ -21,7 +21,7 @@ jobs:
 
   job_B:
     needs: job_A
-    if: needs.job_A.outputs.password_output!='PROD'
+    if: needs.job_A.outputs.password_output=='PROD'
     runs-on: ubuntu-latest
     steps:
       - name: "print from the passed stuff"
