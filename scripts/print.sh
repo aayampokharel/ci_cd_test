@@ -1,3 +1,3 @@
-echo "hello" 
-echo "var=$?"
-echo $var
+until (go --version); do
+  echo "ok"
+done

@@ -9,7 +9,7 @@ jobs:
   job_A:
     runs-on: ubuntu-latest
     outputs:
-      email: ${{steps.output_email.outputs.email}}
+      email: ${{vars.MY_NAME}}
     steps:
       - name: "pass output"
         id: output_email
@@ -19,4 +19,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "print output from jobA"
-        run: echo ${{needs.job_A.outputs.email}}
+        run: echo ${{needs.job_A.outputs.email}} is my name
