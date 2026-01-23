@@ -19,6 +19,7 @@ jobs:
           path: ./hello.txt
   
   job_B:
+    needs: job_A
     runs-on: ubuntu-latest
     steps:
       - name: "download artifact"
