@@ -1,4 +1,6 @@
 name: " artifacts revision"
+env:
+  password: 123
 on: 
   pull_request:
     branches:
@@ -6,31 +8,27 @@ on:
       - master
 
 jobs:
-  job_A:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "make a file"
-        run: |
-              echo "hello brother " > hello.txt
-      - name: "upload as artifact"
-        uses: actions/upload-artifact@v4
-        with:
-          name: "hello file"
-          path: ./hello.txt
   
-  job_B:
-    needs: job_A
+  job_A:
+    env:
+     password: 456
     runs-on: ubuntu-latest
     steps:
-      - name: "download artifact"
-        uses: actions/download-artifact@v4
-        with:
-          name: "hello file"
-          path: ./
-      - name: "file path"
-        run: ls -R
-      - name: "print contents of downloaded artifacts"
+      - name: "echo stuff"
         run: |
-               cat < ./hello.txt
+              echo "hello brother " ${{env.password}} from job level env 
+      - name: "echo password"
+        run: echo ${{env.password}} from steplevel env 
+        env: 
+          password: 789
+
+  job_B:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "echo password but it will do from workflow level env "
+        run : echo ${{env.password}} is from workflow/global level env 
+      
+  
+
       
 
