@@ -17,14 +17,15 @@ jobs:
       - name: "provide key value to output file"
         id: password_provider
         run: |
-              echo "password=pass@123" >> $GITHUB_OUTPUT
+              echo "password=PROD" >> $GITHUB_OUTPUT
 
   job_B:
     needs: job_A
+    if: needs.job_A.outputs.password_output!='PROD'
     runs-on: ubuntu-latest
     steps:
       - name: "print from the passed stuff"
-        run : echo ${{needs.job_A.outputs.password_output}} is the output from job A
+        run : echo  is the output from job A
       
   
 
