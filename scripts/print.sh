@@ -1,3 +1,3 @@
-echo "hello" 
-echo "var=$?"
-echo $var
+while read -r line ;do
+echo $line
+done < ./helo.txt
