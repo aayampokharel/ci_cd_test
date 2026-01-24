@@ -17,10 +17,8 @@ jobs:
           fetch-depth: 0
       - name: "check status of sh file in folder"
         run: | 
-              set -x
-              echo "hello world "
-              echo " this is interesting"
-
+              set -x 
+              echo ${{steps.hello.outputs}} is good 
               
   
 
