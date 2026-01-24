@@ -8,10 +8,11 @@ on:
 jobs:
   
   job_A:
-    if : ${{ (1==1 ||1!=1) && 2>3}}
     runs-on: ubuntu-latest
     steps:
+      - run: echo non-exising command 
       - name: "print hello world"
+        if : failure()
         run: |
               echo "hello world"
   
