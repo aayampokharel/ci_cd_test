@@ -20,7 +20,7 @@ jobs:
               echo "password=pass@123" >> $GITHUB_OUTPUT
   job_B:
     needs: job_A
-    if: false
+    if: ''
     runs-on: ubuntu-latest
     steps:
       - name: "print from the passed stuff"
