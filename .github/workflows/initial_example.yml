@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: "clone the repository"
         uses: actions/checkout@v5
+        with: 
+          fetch-depth: 0
       - name: "check status of sh file in folder"
         run: | 
                git diff --name-only HEAD^ HEAD > changed_files.txt
