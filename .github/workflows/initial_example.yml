@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
       - name: "check status of sh file in folder"
         run: | 
-              set +x
+              set -x
               echo "hello world "
               echo " this is interesting"
 
