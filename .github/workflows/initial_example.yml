@@ -21,9 +21,9 @@ jobs:
         run: | 
                git diff --name-only HEAD^ HEAD > changed_files.txt
                while read -r line ;do
-               echo $line
                 srcFilePath="${line#*/}"
                    srcNameIfExists=${srcValue:0:3}
+                   echo $srcNameIfExists
                    if [[ srcNameIfExists == "src" ]];then
                     echo "src_files_changed=true" >> $GITHUB_OUTPUTS
                    fi
