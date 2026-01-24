@@ -1,6 +1,4 @@
-name: " passing output between jobs"
-env:
-  password: 123
+name: " precedence"
 on: 
   pull_request:
     branches:
@@ -10,21 +8,13 @@ on:
 jobs:
   
   job_A:
-    outputs:
-      password_output: ${{steps.password_provider.outputs.password}}
+    if : ${{ 1==1 ||1!=1 && 2>3}}
     runs-on: ubuntu-latest
     steps:
-      - name: "provide key value to output file"
-        id: password_provider
+      - name: "print hello world"
         run: |
-              echo "password=pass@123" >> $GITHUB_OUTPUT
-  job_B:
-    needs: job_A
-    if : null && true
-    runs-on: ubuntu-latest
-    steps:
-      - name: "print from the passed stuff"
-        run : echo  is the output from job A
+              echo "hello world"
+  
 
 
         
