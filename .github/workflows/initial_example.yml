@@ -10,7 +10,7 @@ jobs:
   job_A:
     runs-on: ubuntu-latest
     steps:
-      - run: echo non-exising command 
+      - run: non-exising command 
       - name: "print hello world"
         if : failure()
         run: |
