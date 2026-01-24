@@ -1,4 +1,4 @@
-name: " precedence"
+name: "skip workflow if file changed"
 on: 
   pull_request:
     branches:
@@ -10,11 +10,17 @@ jobs:
   job_A:
     runs-on: ubuntu-latest
     steps:
-      - run: non-exising command 
-      - name: "print hello world"
-        if : failure()
-        run: |
-              echo "hello world"
+      - name: "clone the repository"
+        uses: actions/checkout@v5
+      - name: "check status of sh file in folder"
+        run: | 
+               git diff --name-only HEAD^ HEAD > changed_files.txt
+               while read -r line ;do
+               echo $line
+                done < ./changed_files.txt
+              
+        
+              
   
 
 

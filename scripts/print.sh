@@ -1,3 +1,3 @@
-if [[ hello = "hello" ]];then
-echo "hello"
-fi
+while read -r line ;do
+echo $line
+done < ./helo.txt
