@@ -9,32 +9,31 @@ on:
       - master 
 jobs: 
   job_A: 
-    runs-on: ubuntu-latest 
-    outputs: 
-      job_B_output: ${{steps.workflow_changed_step.outputs.workflow_changed}}
-    steps: 
-      - name: "clone repository" 
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: "bash logic to check if anything changed in the src/ folder"
-        id: workflow_changed_step
-        run: |
-               git diff origin/${{github.base_ref}} HEAD --name-only > temp.txt
-                cat ./temp.txt
-               while read -r line;do
-               echo $line
-               if [[ "$line" == *bash_scripting/parent1/** ]];then
-                echo "workflow_changed=true" >> $GITHUB_OUTPUT
-               break
-               fi
-               done < ./temp.txt
-  job_B:
-    needs: job_A
-    if: ${{needs.job_A.outputs.job_B_output == 'true'}}
+    env: 
+      artifact_key: simple_artifact
+      path: ./hi.txt
+    outputs:
+      artifact_key: ${{env.artifact_key}}
     runs-on: ubuntu-latest
     steps: 
-      - name: "echo hello world "
-        run: echo hello world 
+      - run: echo "hello world this is from job_A " > hi.txt
+      - name: "set up artifacts"
+        uses: actions/upload-artifact@v5
+        with: 
+          name: ${{env.artifact_key}}
+          path: ${{env.path}}
+
+  job_B:
+    
+    needs: job_A
+    runs-on: ubuntu-latest
+    steps:
+      - name: "download artifact"
+        uses: actions/download-artifact@v5
+        with: 
+          name: ${{needs.job_A.outputs.artifact_key}}
+          path: ./
+      - name: "read the file"
+        run: ls -R
               
               
