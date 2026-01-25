@@ -8,33 +8,14 @@ on:
       - main 
       - master 
 jobs: 
-  job_A: 
-    runs-on: ubuntu-latest 
-    outputs: 
-      job_B_output: ${{steps.workflow_changed_step.outputs.workflow_changed}}
-    steps: 
-      - name: "clone repository" 
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: "bash logic to check if anything changed in the src/ folder"
-        id: workflow_changed_step
-        run: |
-               git diff origin/${{github.base_ref}} HEAD --name-only > temp.txt
-                cat ./temp.txt
-               while read -r line;do
-               echo $line
-               if [[ "$line" == *bash_scripting/parent1/** ]];then
-                echo "workflow_changed=true" >> $GITHUB_OUTPUT
-               break
-               fi
-               done < ./temp.txt
-  job_B:
-    needs: job_A
-    if: ${{needs.job_A.outputs.job_B_output == 'true'}}
+  job_A:
     runs-on: ubuntu-latest
     steps: 
-      - name: "echo hello world "
-        run: echo hello world 
+      - name: "echo in a PR "
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "hello"
+      - name: "echo if not a PR"
+        if: failure()
+        run: echo "this is not PR . "
               
               

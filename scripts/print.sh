@@ -1,1 +1,3 @@
-git diff origin/master HEAD --name-only > 
+until { hi;echo hello;};do
+  echo helloaayam
+done
