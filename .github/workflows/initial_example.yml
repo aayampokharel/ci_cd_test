@@ -1,5 +1,8 @@
-name: "skip workflow if file changed" 
+name: "skip workflow if PR" 
 on: 
+  push:
+    branches:
+      - main
   pull_request: 
     branches: 
       - main 
@@ -7,28 +10,15 @@ on:
 jobs: 
   job_A: 
     runs-on: ubuntu-latest 
-    outputs: 
-      can_run_job_B: ${{steps.status_check.outputs.src_files_changed}} 
     steps: 
       - name: "clone the repository" 
         uses: actions/checkout@v5 
         with: 
           fetch-depth: 0 
       - name: "check status of sh file in folder if changed" 
-        id: status_check 
+        id: status_check
+        if: ${{!(github.event_name == 'pull_request')}}
         run: |
-              git diff --name-only HEAD^ HEAD > changed_files.txt
-                while read -r line ;do 
-                srcFilePath="${line#*/}" 
-                srcNameIfExists=${srcFilePath:0:3} 
-                echo $srcNameIfExists 
-                if [[ $srcNameIfExists == "src" ]];then 
-                echo "src_files_changed=true" >> $GITHUB_OUTPUT
-                fi 
-                done < ./changed_files.txt 
-  job_B: 
-    needs: job_A 
-    if: ${{ needs.job_A.outputs.can_run_job_B == 'true' }} 
-    runs-on: ubuntu-latest 
-    steps: 
-      - run: echo hello world
+               echo "this shouldn't be printed if its a PR"
+              
+              
