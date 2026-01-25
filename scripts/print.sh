@@ -1,3 +1,4 @@
-while read -r line ;do
-echo $line
-done < ./helo.txt
+{
+    echo hello;
+    echo brother;
+} > helo.txt
