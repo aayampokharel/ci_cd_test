@@ -8,7 +8,7 @@ on:
       - main 
       - master 
     paths:
-      - '*/src/**'
+      - '*/bash_scripting/**'
 jobs: 
   job_A: 
     runs-on: ubuntu-latest 
