@@ -16,7 +16,7 @@ jobs:
       - name: "clone repository" 
         uses: actions/checkout@v5
         with:
-          fetch-depth: 50
+          fetch-depth: 0
       - name: "bash logic to check if anything changed in the src/ folder"
         id: workflow_changed_step
         run: |
