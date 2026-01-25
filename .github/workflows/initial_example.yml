@@ -8,17 +8,26 @@ on:
       - main 
       - master 
 jobs: 
-  job_A:
-    strategy:
-      matrix:
-        os: [ubuntu-latest,windows-latest]
-        cmd: [echo "hello",ls -a]
+  job_A:     
     runs-on: ubuntu-latest
     steps: 
-      - name: "echo in a PR "
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo running ${{matrix.os}} with ${{matrix.cmd}} bash command 
-      - name: "run cmd"
-        run: ${{matrix.cmd}}
+      - run: echo "hello world this is from job_A " > hi.txt
+      - name: "set up artifacts"
+        uses: actions/upload-artifact@v5
+        with: 
+          name: hi.txt
+          path: ./
+
+  job_B:
+    needs: job_A
+    runs-on: ubuntu-latest
+    steps:
+      - name: "download artifact"
+        uses: actions/download-artifact@v5
+        with: 
+          name: output.txt
+          path: ./
+      - name: "read the file"
+        run: cat ./output.txt
               
               
