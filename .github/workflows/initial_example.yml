@@ -7,20 +7,30 @@ on:
     branches: 
       - main 
       - master 
-    paths:
-      - '*/bash_scripting/**'
 jobs: 
   job_A: 
     runs-on: ubuntu-latest 
+    outputs: 
+      job_B_output: ${{steps.workflow_changed_step.outputs.workflow_changed}}
     steps: 
-      - name: "clone the repository" 
-        uses: actions/checkout@v5 
-        with: 
-          fetch-depth: 0 
-      - name: "check status of sh file in folder if changed" 
-        id: status_check
-        if: ${{(github.event_name == 'pull_request')}}
+      - name: "clone repository" 
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 50
+      - name: "bash logic to check if anything changed in the src/ folder"
+        id: workflow_changed_step
         run: |
-               echo "this shouldn't be printed if its a PR"
+               git diff ${{github.base_ref}} HEAD > temp.txt
+               while read -r line;do
+               if [[ "$line" == '**/workflows/initial_example.yml' ]];then
+                echo "workflow_changed=true" >> $GITHUB_OUTPUT
+               break
+               done
+  job_B:
+    needs: job_A
+    runs-on: ubuntu-latest
+    steps: 
+      - name: "echo hello world "
+        run: echo hello world with above value${{needs.job_A.outputs.job_B_output}}
               
               
