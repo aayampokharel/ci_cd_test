@@ -24,7 +24,7 @@ jobs:
                 cat ./temp.txt
                while read -r line;do
                echo $line
-               if [[ "$line" == *bash_scripting/f1/** ]];then
+               if [[ "$line" == *bash_scripting/parent1/** ]];then
                 echo "workflow_changed=true" >> $GITHUB_OUTPUT
                break
                fi
