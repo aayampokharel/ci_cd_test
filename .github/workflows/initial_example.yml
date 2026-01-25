@@ -23,7 +23,7 @@ jobs:
                 srcNameIfExists=${srcFilePath:0:3} 
                 echo $srcNameIfExists 
                 if [[ $srcNameIfExists == "src" ]];then 
-                echo "src_files_changed=true" >> $GITHUB_OUTPUTS
+                echo "src_files_changed=true" >> $GITHUB_OUTPUT
                 fi 
                 done < ./changed_files.txt 
   job_B: 
