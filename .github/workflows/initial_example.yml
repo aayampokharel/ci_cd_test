@@ -25,7 +25,7 @@ jobs:
       - name: "download artifact"
         uses: actions/download-artifact@v5
         with: 
-          name: output.txt
+          name: hi.txt
           path: ./
       - name: "read the file"
         run: cat ./output.txt
