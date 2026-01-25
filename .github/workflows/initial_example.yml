@@ -7,6 +7,8 @@ on:
     branches: 
       - main 
       - master 
+    paths:
+      - '*/src/**'
 jobs: 
   job_A: 
     runs-on: ubuntu-latest 
@@ -17,7 +19,7 @@ jobs:
           fetch-depth: 0 
       - name: "check status of sh file in folder if changed" 
         id: status_check
-        if: ${{!(github.event_name == 'pull_request')}}
+        if: ${{(github.event_name == 'pull_request')}}
         run: |
                echo "this shouldn't be printed if its a PR"
               
