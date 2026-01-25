@@ -20,7 +20,7 @@ jobs:
       - name: "bash logic to check if anything changed in the src/ folder"
         id: workflow_changed_step
         run: |
-               git diff ${{github.base_ref}} HEAD > temp.txt
+               git diff origin/${{github.base_ref}} HEAD > temp.txt
                while read -r line;do
                if [[ "$line" == '**/workflows/initial_example.yml' ]];then
                 echo "workflow_changed=true" >> $GITHUB_OUTPUT
