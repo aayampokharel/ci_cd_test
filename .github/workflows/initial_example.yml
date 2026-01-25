@@ -9,13 +9,16 @@ on:
       - master 
 jobs: 
   job_A:
+    strategy:
+      matrix:
+        os: [ubuntu-latest,windows-latest]
+        cmd: [echo "hello",ls -a]
     runs-on: ubuntu-latest
     steps: 
       - name: "echo in a PR "
         if: ${{ github.event_name == 'pull_request' }}
-        run: echo "hello"
-      - name: "echo if not a PR"
-        if: failure()
-        run: echo "this is not PR . "
+        run: echo running ${{matrix.os}} with ${{matrix.cmd}} bash command 
+      - name: "run cmd"
+        run: ${{matrix.cmd}}
               
               
