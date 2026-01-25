@@ -25,6 +25,7 @@ jobs:
                if [[ "$line" == '**/workflows/initial_example.yml' ]];then
                 echo "workflow_changed=true" >> $GITHUB_OUTPUT
                break
+               fi
                done
   job_B:
     needs: job_A
