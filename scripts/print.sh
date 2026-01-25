@@ -1,4 +1,1 @@
-{
-    echo hello;
-    echo brother;
-} > helo.txt
+git diff origin/master HEAD --name-only > 
