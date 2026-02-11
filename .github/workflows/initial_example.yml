@@ -1,22 +1,40 @@
-name: to know whats stored in github_outputs
-on:
+name: using golang to transfer build 
+on: 
   pull_request:
     branches:
       - main
       - master
+
 jobs:
-  producer:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: "upload in github_outputs"
-        run: echo "hello=hello" >> $GITHUB_OUTPUT
-      - id: second_step
-        run: | 
-               echo "world=GLOBE_" >> $GITHUB_OUTPUT
-               echo $GITHUB_OUTPUT
-               cat $GITHUB_OUTPUT
-      - run: |
-               cat $GITHUB_OUTPUT
-               echo $GITHUB_OUTPUT
-               echo ${{steps.second_step.outputs.world}} is great
+      - name: "checkout main.go file and other associated folders"
+        uses: actions/checkout@v4
+      - name: "download go tools"
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.25.5"
+      - name: "build go and give permission"
+        run: |
+               go build -o output
+               chmod u+r ./output
+      - name: "artifact upload"
+        id: go_output
+        uses: actions/upload-artifact@v5
+        with: 
+          name: go_executable
+          path: ./ouptut
 
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "download artifact"
+      uses: actions/download-artifact@v5
+      with:
+        name: go_executable
+        path: ./
+    - name: "run go"
+      run: |
+             chmod u+x ./output
+             go run ./output
