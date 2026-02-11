@@ -1,39 +1,17 @@
-name: "skip workflow if PR" 
-on: 
-  push:
+name: env revision
+on:
+  pull_request:
     branches:
       - main
-  pull_request: 
-    branches: 
-      - main 
-      - master 
-jobs: 
-  job_A: 
-    env: 
-      artifact_key: simple_artifact
-      path: ./hi.txt
-    outputs:
-      artifact_key: ${{env.artifact_key}}
+      - master
+jobs:
+  producer:
     runs-on: ubuntu-latest
-    steps: 
-      - run: echo "hello world this is from job_A " > hi.txt
-      - name: "set up artifacts"
-        uses: actions/upload-artifact@v5
-        with: 
-          name: ${{env.artifact_key}}
-          path: ${{env.path}}
-
-  job_B:
-    
-    needs: job_A
-    runs-on: ubuntu-latest
+    env:
+       name: "hello from env of producer"
     steps:
-      - name: "download artifact"
-        uses: actions/download-artifact@v5
-        with: 
-          name: ${{needs.job_A.outputs.artifact_key}}
-          path: ./
-      - name: "read the file"
-        run: ls -R
-              
-              
+      - name: "print envvalue"
+        run: |
+              echo "hello ${{env.name}}"
+ 
+
