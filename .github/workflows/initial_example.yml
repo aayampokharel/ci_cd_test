@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
        name: "hello from env of producer"
+    outputs:
+      name_outuput: ${{steps.for_upload.outputs.producer_output}}
     steps:
       - name: "print envvalue"
         run: |
               echo "hello ${{env.name}}"
       - name: "upload to github output"
+        id: for_upload
         run: |
               echo producer_output=${{env.name}} >> $GITHUB_OUTPUT
 
@@ -23,7 +26,7 @@ jobs:
     needs: producer
     steps:
       - name: "use env of producer"
-        run: echo ${{needs.producer.outputs.producer_output}}
+        run: echo ${{needs.producer.outputs}}
 
  
 
