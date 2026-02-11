@@ -16,7 +16,7 @@ jobs:
       - name: "upload to github output"
         id: for_upload
         run: |
-              echo producer_output='${{env.name}}'' >> ./output.txt
+              echo producer_output='${{env.name}}' >> ./output.txt
       - name: "upload artifacts"
         uses: actions/upload-artifact@v4
         with:
