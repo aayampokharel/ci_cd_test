@@ -10,12 +10,13 @@ jobs:
     steps:
       - name: "upload in github_outputs"
         run: echo "hello=hello" >> $GITHUB_OUTPUT
-      - run: | 
-               echo "world=world" >> $GITHUB_OUTPUT
+      - id: second_step
+        run: | 
+               echo "world=GLOBE_" >> $GITHUB_OUTPUT
                echo $GITHUB_OUTPUT
                cat $GITHUB_OUTPUT
       - run: |
                cat $GITHUB_OUTPUT
                echo $GITHUB_OUTPUT
- 
+               echo ${{steps.second_step.outputs.world}} is great
 
