@@ -15,7 +15,7 @@ jobs:
               echo "hello ${{env.name}}"
       - name: "upload to github output"
         run: |
-              echo producer_output:${{env.name}} >> $GITHUB_OUTPUTS
+              echo producer_output:${{env.name}} >> $GITHUB_OUTPUT
 
 
   consumer:
