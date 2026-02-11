@@ -10,9 +10,6 @@ jobs:
     env:
        name: "hello from env of producer"
     steps:
-      - name: "print envvalue"
-        run: |
-              echo "hello ${{env.name}}"
       - name: "upload in github_outputs"
         run: echo "hello" >> $GITHUB_OUTPUT
       - run: echo "world" >> $GITHUB_OUTPUT
