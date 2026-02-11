@@ -17,6 +17,7 @@ jobs:
         id: for_upload
         run: |
               echo producer_output='${{env.name}}' >> ./output.txt
+              echo 'the end ===' >> ./output.txt
       - name: "upload artifacts"
         uses: actions/upload-artifact@v4
         with:
@@ -34,7 +35,8 @@ jobs:
           path: ./
       - name: "use artifacts"
         run: |
-                echo "hello"
-                ls -R
+                while read r;do
+                echo $r
+                done < ./output.txt
  
 
