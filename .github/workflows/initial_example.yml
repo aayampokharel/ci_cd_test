@@ -35,5 +35,6 @@ jobs:
       - name: "use artifacts"
         run: |
                 echo "hello"
+                ls -R
  
 
