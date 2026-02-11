@@ -28,6 +28,7 @@ jobs:
 
   execute:
     runs-on: ubuntu-latest
+    needs: build
     steps:
     - name: "download artifact"
       uses: actions/download-artifact@v5
