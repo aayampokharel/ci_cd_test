@@ -11,8 +11,8 @@ jobs:
        name: "hello from env of producer"
     steps:
       - name: "upload in github_outputs"
-        run: echo "hello" >> $GITHUB_OUTPUT
-      - run: echo "world" >> $GITHUB_OUTPUT
+        run: echo "hello=hello" >> $GITHUB_OUTPUT
+      - run: echo "world=world" >> $GITHUB_OUTPUT
       - run: cat $GITHUB_OUTPUT
  
 
