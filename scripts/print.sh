@@ -1,3 +1,4 @@
-while read r ;do
-echo $r
-done < ./helo.txt
+{
+echo "hello"
+echo "hi"
+} >> ./helo.txt

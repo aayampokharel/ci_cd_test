@@ -1,4 +1,4 @@
-name: passing through artifacts
+name: to know whats stored in github_outputs
 on:
   pull_request:
     branches:
@@ -13,30 +13,9 @@ jobs:
       - name: "print envvalue"
         run: |
               echo "hello ${{env.name}}"
-      - name: "upload to github output"
-        id: for_upload
-        run: |
-              echo producer_output='${{env.name}}' >> ./output.txt
-              echo 'the end ===' >> ./output.txt
-      - name: "upload artifacts"
-        uses: actions/upload-artifact@v4
-        with:
-          name: outputss 
-          path: ./output.txt
-
-  consumer:
-    runs-on: ubuntu-latest
-    needs: producer
-    steps:
-      - name: "download artifacts"
-        uses: actions/download-artifact@v4
-        with:
-          name: outputss
-          path: ./
-      - name: "use artifacts"
-        run: |
-                while read r;do
-                echo $r
-                done < ./output.txt
+      - name: "upload in github_outputs"
+        run: echo "hello" >> $GITHUB_OUTPUT
+      - run: echo "world" >> $GITHUB_OUTPUT
+      - run: cat $GITHUB_OUTPUT
  
 
