@@ -26,7 +26,7 @@ jobs:
     needs: producer
     steps:
       - name: "use env of producer"
-        run: echo ${{needs.producer.outputs}}
+        run: echo ${{needs.producer.outputs.name_outuput}}
 
  
 
