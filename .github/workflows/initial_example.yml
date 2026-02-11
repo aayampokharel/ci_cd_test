@@ -1,4 +1,4 @@
-name: env revision
+name: passing through artifacts
 on:
   pull_request:
     branches:
@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
        name: "hello from env of producer"
-    outputs:
-      name_outuput: ${{steps.for_upload.outputs.producer_output}}
     steps:
       - name: "print envvalue"
         run: |
@@ -18,15 +16,24 @@ jobs:
       - name: "upload to github output"
         id: for_upload
         run: |
-              echo producer_output=${{env.name}} >> $GITHUB_OUTPUT
-
+              echo producer_output='${{env.name}}'' >> ./output.txt
+      - name: "upload artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputss 
+          path: ./output.txt
 
   consumer:
     runs-on: ubuntu-latest
     needs: producer
     steps:
-      - name: "use env of producer"
-        run: echo ${{needs.producer.outputs.name_outuput}}
-
+      - name: "download artifacts"
+        uses: actions/download-artifact@v4
+        with:
+          name: outputss
+          path: ./
+      - name: "use artifacts"
+        run: |
+                echo "hello"
  
 
