@@ -7,12 +7,15 @@ on:
 jobs:
   producer:
     runs-on: ubuntu-latest
-    env:
-       name: "hello from env of producer"
     steps:
       - name: "upload in github_outputs"
         run: echo "hello=hello" >> $GITHUB_OUTPUT
-      - run: echo "world=world" >> $GITHUB_OUTPUT
-      - run: cat $GITHUB_OUTPUT
+      - run: | 
+               echo "world=world" >> $GITHUB_OUTPUT
+               echo $GITHUB_OUTPUT
+               cat $GITHUB_OUTPUT
+      - run: |
+               cat $GITHUB_OUTPUT
+               echo $GITHUB_OUTPUT
  
 
