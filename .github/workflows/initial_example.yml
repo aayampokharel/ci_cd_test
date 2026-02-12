@@ -26,6 +26,7 @@ jobs:
                 echo $r
                 if [[ $r == bash_scripting/* || $r == ./bash_scripting/* ]];then
                 echo "bash_scripting_check=true" >> $GITHUB_OUTPUT
+                break
                 fi
                 done < ./output.txt
 
