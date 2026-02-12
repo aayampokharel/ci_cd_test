@@ -22,7 +22,7 @@ jobs:
                 shopt -s globstar
                 while read r;do
                 echo $r
-                if [[ $r == bash_scripting/* || $r ==./bash_scripting/* ]];then
+                if [[ $r == bash_scripting/* || $r == ./bash_scripting/* ]];then
                 echo "bash_scripting_check=true" >> $GITHUB_OUTPUT
                 fi
                 done < ./output.txt
