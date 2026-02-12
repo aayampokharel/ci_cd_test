@@ -9,33 +9,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: "checkout main.go file and other associated folders"
+      - name: "clone repo" 
         uses: actions/checkout@v4
-      - name: "download go tools"
-        uses: actions/setup-go@v6
         with:
-          go-version: "1.25.5"
-      - name: "build go and give permission"
-        run: |
-               go build -o ./output
-               chmod u+r ./output
-      - name: "artifact upload"
-        id: go_output
-        uses: actions/upload-artifact@v5
-        with: 
-          name: go_executable
-          path: ./output
+          fetch-depth: 0 
+
+      - name: "check the folder and set output "
+        id: bash_scripting_check
+        run: | 
+               ls -R   
+                git diff --name-only origin/master...HEAD  >> ./output.txt
+                shopt -s globstar
+                while read r;do
+                echo $r
+                if [[ $r == bash_scripting/* || $r ==./bash_scripting/* ]];then
+                echo "bash_scripting_check=true" >> $GITHUB_OUTPUT
+                fi
+                done < ./output.txt
+
+               
+
+              
 
   execute:
     runs-on: ubuntu-latest
     needs: build
+    if: ${{ needs.build.steps.bash_scripting_check.bash_scripting_check == true }}
     steps:
-    - name: "download artifact"
-      uses: actions/download-artifact@v5
-      with:
-        name: go_executable
-        path: ./
-    - name: "run go"
-      run: |
-             chmod u+x ./output
-             ./output
+      - name: echo hello
+        run: echo hello
