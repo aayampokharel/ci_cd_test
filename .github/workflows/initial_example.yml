@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      bash_script_check: ${{ steps.bash_scripting_check.outputs.bash_scripting_check }}
     steps:
       - name: "clone repo" 
         uses: actions/checkout@v4
@@ -34,7 +36,7 @@ jobs:
   execute:
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ needs.build.steps.bash_scripting_check.bash_scripting_check == true }}
+    if: ${{ needs.build.outputs.bash_script_check == 'true' }}
     steps:
       - name: echo hello
         run: echo hello
