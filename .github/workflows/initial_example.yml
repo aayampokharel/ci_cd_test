@@ -31,5 +31,5 @@ jobs:
       - name: "output the content of the file"
         run: cat ./info.txt
       - name: "not in main branch"
-        if: github.ref_name=='testing-previous-concepts'
+        if: github.head_ref=='testing-previous-concepts'
         run: echo "in testing-previous-concepts branch"
