@@ -1,43 +1,30 @@
-name: using golang to transfer build 
-on: 
+name: artifacts example
+on:
   pull_request:
     branches:
       - main
       - master
 
 jobs:
-  build:
+  upload-artifacts:
     runs-on: ubuntu-latest
-    outputs:
-      bash_script_check: ${{ steps.bash_scripting_check.outputs.bash_scripting_check }}
     steps:
-      - name: "clone repo" 
-        uses: actions/checkout@v4
+      - name: "write name"
+        run: echo 'name=AayamPokharel' >> ./info.txt
+      - name: "upload artifacts"
+        uses: actions/upload-artifact@v5
         with:
-          fetch-depth: 0 
-
-      - name: "check the folder and set output "
-        id: bash_scripting_check
-        run: | 
-               ls -R   
-                git diff --name-only origin/master...HEAD  >> ./output.txt
-                shopt -s globstar
-                while read r;do
-                echo $r
-                if [[ $r == bash_scripting/* || $r == ./bash_scripting/* ]];then
-                echo "bash_scripting_check=true" >> $GITHUB_OUTPUT
-                break
-                fi
-                done < ./output.txt
-
-               
-
-              
-
-  execute:
+          name: info.txt
+          path: ./info.txt
+  
+  download-artifacts:
     runs-on: ubuntu-latest
-    needs: build
-    if: ${{ needs.build.outputs.bash_script_check == 'true' }}
+    needs: upload-artifacts
     steps:
-      - name: echo hello
-        run: echo hello
+      - name: "get artifact"
+        uses: actions/download-artifact@v5
+        with:
+          name: info.txt
+          path: ./
+      - name: "output the content of the file"
+        run: cat ./info.txt
