@@ -1,16 +1,17 @@
-name: path example
-on:
-  pull_request:
+name: "CICD practice"
+
+on: 
+  pull_request: 
     branches:
-      - main
-      - master
-    paths:
-      - 'bash_scripting/**'
+    - main
+    - master
+
 jobs:
-  simple_job:
-    runs-on: ubuntu-latest 
+  run-Go:
+    runs-on: ubuntu-latest
     steps:
-      - name: "display name"
-        run: echo 'name=AayamPokharel' 
+      - name: "run the go code"
+        run: echo 'hello world after a long time'
   
-  
+
+
